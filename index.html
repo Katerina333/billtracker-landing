@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bill Tracker — Shared envelope budgeting for your household</title>
+  <meta name="description" content="Shared envelope budgeting for your household, trips, and projects — private, beautiful, no bank login required. Coming soon to the App Store.">
+
+  <link rel="canonical" href="https://billtrackerx.com/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/style.css">
+
+  <!-- OpenGraph / social previews -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://billtrackerx.com/">
+  <meta property="og:title" content="Bill Tracker — Shared envelope budgeting">
+  <meta property="og:description" content="Plan budgets together for your household, trips, and projects. Private, beautiful, no bank login required.">
+  <meta property="og:image" content="https://billtrackerx.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Analytics (Plausible; site must be registered — see README) -->
+  <script defer data-domain="billtrackerx.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect width="28" height="28" rx="8" fill="#00756A"/>
+        <path d="M6 10.5 14 15l8-4.5M7.5 8h13A1.5 1.5 0 0 1 22 9.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 6 18.5v-9A1.5 1.5 0 0 1 7.5 8Z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Bill Tracker
+    </a>
+    <nav class="site-nav">
+      <a class="nav-link" href="#features">Features</a>
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="btn btn-primary" href="#waitlist">Join the waitlist</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Budget together, envelope by envelope</h1>
+        <p class="tagline">Shared envelope budgeting for your household, trips, and projects — private, beautiful, and no bank login required.</p>
+
+        <form class="waitlist-form js-waitlist" method="POST" action="https://formspree.io/f/REPLACE_FORM_ID">
+          <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
+          <input type="hidden" name="ref" class="js-ref" value="">
+          <button class="btn btn-primary" type="submit">Join the waitlist</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <p class="form-note">Be first in line for the beta. No spam — one email when we launch.</p>
+
+        <div class="hero-badges">
+          <a class="appstore-badge" href="https://apps.apple.com/app/id6787081411" aria-label="Download on the App Store">
+            <img src="/assets/appstore-badge.svg" alt="Download on the App Store" height="48" loading="lazy">
+          </a>
+          <span class="coming-soon">Coming soon to iPhone</span>
+        </div>
+      </div>
+
+      <div class="phone" role="img" aria-label="Preview of the Bill Tracker overview screen with a period progress ring and envelope budgets">
+        <div class="phone-screen">
+          <div class="phone-title">July · Household</div>
+          <div class="ring-row">
+            <div class="ring"></div>
+            <div class="ring-caption">
+              <div class="big">€742 left</div>
+              <div class="small">of €1,950 · 12 days to go</div>
+            </div>
+          </div>
+          <div class="env-card">
+            <div class="env-top"><span>🛒 Groceries</span><span class="amount">€312 / €500</span></div>
+            <div class="env-bar"><i style="width:62%"></i></div>
+            <div class="env-avatars"><span>KA</span><span>TO</span></div>
+          </div>
+          <div class="env-card">
+            <div class="env-top"><span>🍕 Eating out</span><span class="amount">€128 / €150</span></div>
+            <div class="env-bar warn"><i style="width:85%"></i></div>
+            <div class="env-avatars"><span>TO</span></div>
+          </div>
+          <div class="env-card">
+            <div class="env-top"><span>🚌 Transport</span><span class="amount">€96 / €80</span></div>
+            <div class="env-bar over"><i style="width:100%"></i></div>
+            <div class="env-avatars"><span>KA</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="features">
+    <div class="wrap">
+      <h2>One budget, everyone on the same page</h2>
+      <p class="lead">Give every euro a home. Bill Tracker brings classic envelope budgeting to the whole household — without handing over your bank login.</p>
+
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m2 8 10 6L22 8"/></svg>
+          </div>
+          <h3>Envelope budgeting</h3>
+          <p>Plan each period in envelopes — groceries, rent, fun money. See at a glance what's left, what's tight, and what's overspent.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          </div>
+          <h3>Workspaces for real life</h3>
+          <p>Household, holiday trip, renovation, kid's allowance — each workspace has its own members, envelopes, and currency.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Invite your people</h3>
+          <p>Share a link, budget together in real time. Roles included — kids can log their own spending without seeing the whole budget.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Private by design</h3>
+          <p>No bank login, no account scraping, no selling your data. You log what you spend — your money stays your business.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 5.7 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.7-4-9s1.5-6.4 4-9Z"/></svg>
+          </div>
+          <h3>Works in every country</h3>
+          <p>Manual entry means no bank compatibility lists. Any currency, offline-friendly, built for Europe and beyond — in 6 languages.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M3 12h2M19 12h2M5.6 18.4 7 17M17 7l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <h3>Fast, beautiful, yours</h3>
+          <p>Log an expense in under three taps. Light and dark themes, native iPhone feel, designed to be a joy to open every day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="lead">Two minutes to set up. No account needed to start.</p>
+      <div class="steps">
+        <div class="step">
+          <h3>Create your envelopes</h3>
+          <p>Decide how much goes to groceries, rent, and fun this month. Your plan, your categories, your currency.</p>
+        </div>
+        <div class="step">
+          <h3>Log spending in seconds</h3>
+          <p>Numpad-first entry: amount, envelope, done. Works offline — on the bus, at the market, anywhere.</p>
+        </div>
+        <div class="step">
+          <h3>See where you stand — together</h3>
+          <p>Invite your partner or family. Everyone sees the same envelopes update live, with every expense attributed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="waitlist">
+    <div class="wrap">
+      <div class="cta-box">
+        <h2>Get early access</h2>
+        <p class="lead">Join the waitlist and be among the first to try Bill Tracker on TestFlight.</p>
+        <form class="waitlist-form js-waitlist" method="POST" action="https://formspree.io/f/REPLACE_FORM_ID">
+          <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
+          <input type="hidden" name="ref" class="js-ref" value="">
+          <button class="btn btn-primary" type="submit">Join the waitlist</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span class="js-year">2026</span> Bill Tracker</span>
+    <nav>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  // Capture ?ref= for waitlist attribution (persists across pages).
+  (function () {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (ref) { try { localStorage.setItem('bt_ref', ref); } catch (e) {} }
+    var stored = ref || (function () { try { return localStorage.getItem('bt_ref'); } catch (e) { return null; } })();
+    document.querySelectorAll('.js-ref').forEach(function (el) { el.value = stored || 'direct'; });
+    document.querySelectorAll('.js-year').forEach(function (el) { el.textContent = new Date().getFullYear(); });
+  })();
+
+  // Waitlist submit — AJAX to Formspree; friendly fallback until the form id is configured.
+  document.querySelectorAll('.js-waitlist').forEach(function (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var status = form.querySelector('.form-status');
+      if (form.action.indexOf('REPLACE_FORM_ID') !== -1) {
+        status.textContent = 'The waitlist opens very soon — check back shortly!';
+        status.className = 'form-status ok';
+        return;
+      }
+      var data = new FormData(form);
+      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (r) {
+          if (r.ok) {
+            form.reset();
+            status.textContent = "You're on the list! We'll be in touch.";
+            status.className = 'form-status ok';
+            if (window.plausible) plausible('waitlist_signup');
+          } else {
+            status.textContent = 'Something went wrong — please try again.';
+            status.className = 'form-status err';
+          }
+        })
+        .catch(function () {
+          status.textContent = 'Network error — please try again.';
+          status.className = 'form-status err';
+        });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>You're invited — Bill Tracker</title>
+  <meta name="description" content="You've been invited to a shared budget on Bill Tracker. Get the app to join.">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/style.css">
+
+  <!-- OpenGraph — invite links are shared in iMessage/WhatsApp, make them look good -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Join my budget on Bill Tracker">
+  <meta property="og:description" content="You've been invited to a shared budget. Private, beautiful envelope budgeting — no bank login required.">
+  <meta property="og:image" content="https://billtrackerx.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script defer data-domain="billtrackerx.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect width="28" height="28" rx="8" fill="#00756A"/>
+        <path d="M6 10.5 14 15l8-4.5M7.5 8h13A1.5 1.5 0 0 1 22 9.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 6 18.5v-9A1.5 1.5 0 0 1 7.5 8Z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Bill Tracker
+    </a>
+  </div>
+</header>
+
+<main class="join-main">
+  <div class="join-card">
+    <div class="icon-big">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+    </div>
+
+    <div class="js-has-token" hidden>
+      <h1>You're invited!</h1>
+      <p>Someone wants to budget together with you on Bill Tracker — shared envelopes, private by design.</p>
+      <div class="join-actions">
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6787081411">Get Bill Tracker on the App Store</a>
+        <button class="btn btn-tonal js-copy" type="button">Copy invite link</button>
+      </div>
+      <div class="join-steps">
+        <ol>
+          <li>Install Bill Tracker from the App Store.</li>
+          <li>If the app doesn't open this invite automatically, copy the link above.</li>
+          <li>Open the app — it will ask for your invite link. Paste it and you're in.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="js-no-token" hidden>
+      <h1>This invite link is incomplete</h1>
+      <p>Ask the person who invited you to send the link again, or learn more about Bill Tracker on our home page.</p>
+      <div class="join-actions">
+        <a class="btn btn-primary" href="/">About Bill Tracker</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span class="js-year">2026</span> Bill Tracker</span>
+    <nav>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var token = new URLSearchParams(location.search).get('t');
+    document.querySelector(token ? '.js-has-token' : '.js-no-token').hidden = false;
+    document.querySelectorAll('.js-year').forEach(function (el) { el.textContent = new Date().getFullYear(); });
+
+    var copyBtn = document.querySelector('.js-copy');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(location.href).then(function () {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function () { copyBtn.textContent = 'Copy invite link'; }, 2000);
+        });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

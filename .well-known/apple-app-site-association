@@ -1,0 +1,20 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["635LDGUSAA.com.billtrackerx.app"],
+        "components": [
+          {
+            "/": "/join/",
+            "?": { "t": "?*" },
+            "comment": "Workspace invite links: https://billtrackerx.com/join/?t=<token>"
+          },
+          {
+            "/": "/join/*",
+            "comment": "Any other /join path variants"
+          }
+        ]
+      }
+    ]
+  }
+}
