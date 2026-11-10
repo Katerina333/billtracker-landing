@@ -1,0 +1,13 @@
+# Cloudflare Pages response headers.
+
+# Apple wants JSON for Universal Links; GitHub Pages could only serve it as octet-stream.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+
+# Not purged on deploy: after changing a CSS/JS file, bump its ?v= in src/index.html and tools/build.mjs.
+/assets/*
+  Cache-Control: public, max-age=86400
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

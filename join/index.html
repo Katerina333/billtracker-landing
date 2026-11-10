@@ -43,26 +43,26 @@
     </div>
 
     <div class="js-has-token" hidden>
-      <h1>You're invited!</h1>
-      <p>Someone wants to budget together with you on Bill Tracker — shared envelopes, private by design.</p>
+      <h1 data-i18n="inv_h">You're invited!</h1>
+      <p data-i18n="inv_p">Someone wants to budget together with you on Bill Tracker — shared envelopes, private by design.</p>
       <div class="join-actions">
-        <a class="btn btn-primary" href="https://apps.apple.com/app/id6787081411">Get Bill Tracker on the App Store</a>
-        <button class="btn btn-tonal js-copy" type="button">Copy invite link</button>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6787081411" data-i18n="inv_get">Get Bill Tracker on the App Store</a>
+        <button class="btn btn-tonal js-copy" type="button" data-i18n="inv_copy">Copy invite link</button>
       </div>
       <div class="join-steps">
         <ol>
-          <li>Install Bill Tracker from the App Store.</li>
-          <li>If the app doesn't open this invite automatically, copy the link above.</li>
-          <li>Open the app — it will ask for your invite link. Paste it and you're in.</li>
+          <li data-i18n="inv_s1">Install Bill Tracker from the App Store.</li>
+          <li data-i18n="inv_s2">If the app doesn't open this invite automatically, copy the link above.</li>
+          <li data-i18n="inv_s3">Open the app — it will ask for your invite link. Paste it and you're in.</li>
         </ol>
       </div>
     </div>
 
     <div class="js-no-token" hidden>
-      <h1>This invite link is incomplete</h1>
-      <p>Ask the person who invited you to send the link again, or learn more about Bill Tracker on our home page.</p>
+      <h1 data-i18n="bad_h">This invite link is incomplete</h1>
+      <p data-i18n="bad_p">Ask the person who invited you to send the link again, or learn more about Bill Tracker on our home page.</p>
       <div class="join-actions">
-        <a class="btn btn-primary" href="/">About Bill Tracker</a>
+        <a class="btn btn-primary js-home" href="/" data-i18n="bad_btn">About Bill Tracker</a>
       </div>
     </div>
   </div>
@@ -72,14 +72,41 @@
   <div class="wrap">
     <span>© <span class="js-year">2026</span> Bill Tracker</span>
     <nav>
-      <a href="/privacy/">Privacy</a>
-      <a href="/terms/">Terms</a>
+      <a href="/privacy/" data-i18n="privacy">Privacy</a>
+      <a href="/terms/" data-i18n="terms">Terms</a>
     </nav>
   </div>
 </footer>
 
 <script>
+  // Invite page strings. The URL has to stay /join/?t=<token> (Universal Link),
+  // so the language is picked here from the browser instead of a /<lang>/ path.
+  var I18N = {
+    en: { title: "You're invited — Bill Tracker", inv_h: "You're invited!", inv_p: "Someone wants to budget together with you on Bill Tracker — shared envelopes, private by design.", inv_get: "Get Bill Tracker on the App Store", inv_copy: "Copy invite link", copied: "Copied!", inv_s1: "Install Bill Tracker from the App Store.", inv_s2: "If the app doesn't open this invite automatically, copy the link above.", inv_s3: "Open the app — it will ask for your invite link. Paste it and you're in.", bad_h: "This invite link is incomplete", bad_p: "Ask the person who invited you to send the link again, or learn more about Bill Tracker on our home page.", bad_btn: "About Bill Tracker", privacy: "Privacy", terms: "Terms" },
+    uk: { title: "Вас запрошено — Bill Tracker", inv_h: "Вас запрошено!", inv_p: "Хтось хоче вести бюджет разом із вами в Bill Tracker — спільні конверти й повна приватність.", inv_get: "Завантажити Bill Tracker в App Store", inv_copy: "Скопіювати посилання", copied: "Скопійовано!", inv_s1: "Установіть Bill Tracker з App Store.", inv_s2: "Якщо застосунок не відкрив запрошення сам, скопіюйте посилання вище.", inv_s3: "Відкрийте застосунок — він попросить посилання-запрошення. Вставте його, і ви в команді.", bad_h: "Посилання-запрошення неповне", bad_p: "Попросіть людину, яка вас запросила, надіслати посилання ще раз, або дізнайтеся більше про Bill Tracker на головній сторінці.", bad_btn: "Про Bill Tracker", privacy: "Конфіденційність", terms: "Умови" },
+    hu: { title: "Meghívtak — Bill Tracker", inv_h: "Meghívtak!", inv_p: "Valaki közös költségvetést szeretne veled vezetni a Bill Trackerben — közös borítékok, alapból privát.", inv_get: "Bill Tracker letöltése az App Store-ból", inv_copy: "Meghívólink másolása", copied: "Másolva!", inv_s1: "Telepítsd a Bill Trackert az App Store-ból.", inv_s2: "Ha az app nem nyitja meg magától a meghívót, másold ki a fenti linket.", inv_s3: "Nyisd meg az appot — kérni fogja a meghívólinket. Illeszd be, és már bent is vagy.", bad_h: "Ez a meghívólink hiányos", bad_p: "Kérd meg azt, aki meghívott, hogy küldje el újra a linket, vagy tudj meg többet a Bill Trackerről a kezdőlapon.", bad_btn: "A Bill Trackerről", privacy: "Adatvédelem", terms: "Feltételek" },
+    nb: { title: "Du er invitert — Bill Tracker", inv_h: "Du er invitert!", inv_p: "Noen vil budsjettere sammen med deg i Bill Tracker — delte konvolutter, privat fra bunnen av.", inv_get: "Hent Bill Tracker i App Store", inv_copy: "Kopier invitasjonslenken", copied: "Kopiert!", inv_s1: "Installer Bill Tracker fra App Store.", inv_s2: "Hvis appen ikke åpner invitasjonen av seg selv, kopier lenken over.", inv_s3: "Åpne appen — den spør etter invitasjonslenken. Lim den inn, så er du med.", bad_h: "Denne invitasjonslenken er ufullstendig", bad_p: "Be personen som inviterte deg om å sende lenken på nytt, eller les mer om Bill Tracker på forsiden.", bad_btn: "Om Bill Tracker", privacy: "Personvern", terms: "Vilkår" },
+    de: { title: "Du bist eingeladen — Bill Tracker", inv_h: "Du bist eingeladen!", inv_p: "Jemand möchte mit dir gemeinsam in Bill Tracker haushalten — geteilte Umschläge, privat von Grund auf.", inv_get: "Bill Tracker im App Store laden", inv_copy: "Einladungslink kopieren", copied: "Kopiert!", inv_s1: "Installiere Bill Tracker aus dem App Store.", inv_s2: "Falls die App die Einladung nicht von selbst öffnet, kopiere den Link oben.", inv_s3: "Öffne die App — sie fragt nach deinem Einladungslink. Einfügen, und du bist dabei.", bad_h: "Dieser Einladungslink ist unvollständig", bad_p: "Bitte die Person, die dich eingeladen hat, den Link noch einmal zu senden, oder erfahre mehr über Bill Tracker auf unserer Startseite.", bad_btn: "Über Bill Tracker", privacy: "Datenschutz", terms: "Nutzungsbedingungen" },
+    fr: { title: "Vous êtes invité — Bill Tracker", inv_h: "Vous êtes invité !", inv_p: "Quelqu'un souhaite gérer un budget avec vous sur Bill Tracker — des enveloppes partagées, privé par conception.", inv_get: "Obtenir Bill Tracker sur l'App Store", inv_copy: "Copier le lien d'invitation", copied: "Copié !", inv_s1: "Installez Bill Tracker depuis l'App Store.", inv_s2: "Si l'app n'ouvre pas l'invitation toute seule, copiez le lien ci-dessus.", inv_s3: "Ouvrez l'app — elle vous demandera votre lien d'invitation. Collez-le, et c'est fait.", bad_h: "Ce lien d'invitation est incomplet", bad_p: "Demandez à la personne qui vous a invité de renvoyer le lien, ou découvrez Bill Tracker sur notre page d'accueil.", bad_btn: "À propos de Bill Tracker", privacy: "Confidentialité", terms: "Conditions" },
+    pt: { title: "Você foi convidado — Bill Tracker", inv_h: "Você foi convidado!", inv_p: "Alguém quer fazer o orçamento junto com você no Bill Tracker — envelopes compartilhados, privado de verdade.", inv_get: "Baixar o Bill Tracker na App Store", inv_copy: "Copiar link do convite", copied: "Copiado!", inv_s1: "Instale o Bill Tracker pela App Store.", inv_s2: "Se o app não abrir o convite sozinho, copie o link acima.", inv_s3: "Abra o app — ele vai pedir o link do convite. Cole e pronto, você está dentro.", bad_h: "Este link de convite está incompleto", bad_p: "Peça para quem te convidou enviar o link de novo, ou conheça o Bill Tracker na nossa página inicial.", bad_btn: "Sobre o Bill Tracker", privacy: "Privacidade", terms: "Termos" },
+    es: { title: "Te han invitado — Bill Tracker", inv_h: "¡Te han invitado!", inv_p: "Alguien quiere llevar el presupuesto contigo en Bill Tracker — sobres compartidos, privado por diseño.", inv_get: "Descargar Bill Tracker en la App Store", inv_copy: "Copiar enlace de invitación", copied: "¡Copiado!", inv_s1: "Instala Bill Tracker desde la App Store.", inv_s2: "Si la app no abre la invitación sola, copia el enlace de arriba.", inv_s3: "Abre la app — te pedirá el enlace de invitación. Pégalo y ya estás dentro.", bad_h: "Este enlace de invitación está incompleto", bad_p: "Pide a quien te invitó que te envíe el enlace de nuevo, o descubre Bill Tracker en nuestra página de inicio.", bad_btn: "Sobre Bill Tracker", privacy: "Privacidad", terms: "Términos" }
+  };
+
   (function () {
+    var lang = 'en', prefs = navigator.languages || [navigator.language || 'en'];
+    try { lang = localStorage.getItem('bt_lang') || ''; } catch (e) { lang = ''; }
+    for (var i = 0; !I18N[lang] && i < prefs.length; i++) {
+      var c = String(prefs[i]).toLowerCase().split('-')[0];
+      if (c === 'no' || c === 'nn') c = 'nb';
+      if (I18N[c]) lang = c;
+    }
+    if (!I18N[lang]) lang = 'en';
+    var t = I18N[lang];
+    document.documentElement.lang = lang;
+    document.title = t.title;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t[el.getAttribute('data-i18n')]; });
+    document.querySelectorAll('.brand, .js-home').forEach(function (el) { el.setAttribute('href', lang === 'en' ? '/' : '/' + lang + '/'); });
+
     var token = new URLSearchParams(location.search).get('t');
     document.querySelector(token ? '.js-has-token' : '.js-no-token').hidden = false;
     document.querySelectorAll('.js-year').forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -88,8 +115,8 @@
     if (copyBtn) {
       copyBtn.addEventListener('click', function () {
         navigator.clipboard.writeText(location.href).then(function () {
-          copyBtn.textContent = 'Copied!';
-          setTimeout(function () { copyBtn.textContent = 'Copy invite link'; }, 2000);
+          copyBtn.textContent = t.copied;
+          setTimeout(function () { copyBtn.textContent = t.inv_copy; }, 2000);
         });
       });
     }

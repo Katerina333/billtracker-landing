@@ -1,0 +1,23 @@
+{
+  "site": "https://billtrackerx.com",
+  "gum": "~/.local/bin/gum",
+  "gscWindowDays": 28,
+  "langs": {
+    "en": { "hl": "en", "gl": ["us", "gb", "ca", "au"], "countries": ["usa", "gbr", "can", "aus", "nzl", "irl"],
+      "seeds": ["envelope budgeting", "budget for couples", "how to budget as a family", "shared expense tracker", "budget app without bank account", "how to track monthly expenses", "cash envelope system", "household budget categories"] },
+    "uk": { "hl": "uk", "gl": ["ua"], "countries": ["ukr"],
+      "seeds": ["сімейний бюджет", "як вести бюджет", "облік витрат", "метод конвертів", "як планувати бюджет сім'ї", "спільний бюджет", "як заощаджувати гроші"] },
+    "hu": { "hl": "hu", "gl": ["hu"], "countries": ["hun"],
+      "seeds": ["családi költségvetés", "borítékos módszer", "kiadások követése", "költségvetés készítése", "közös kassza", "hogyan spóroljak", "havi kiadások táblázat"] },
+    "nb": { "hl": "no", "gl": ["no"], "countries": ["nor"],
+      "seeds": ["budsjett", "familiebudsjett", "felles økonomi", "konvoluttbudsjett", "hvordan lage budsjett", "oversikt over utgifter", "budsjett for par"] },
+    "de": { "hl": "de", "gl": ["de", "at", "ch"], "countries": ["deu", "aut", "che"],
+      "seeds": ["haushaltsbuch", "umschlagmethode", "budget planen", "ausgaben tracken", "gemeinsames haushaltsbuch", "haushaltsbudget paar", "wie viel geld für lebensmittel", "budget kategorien"] },
+    "fr": { "hl": "fr", "gl": ["fr", "be", "ca", "ch"], "countries": ["fra", "bel", "che", "can"],
+      "seeds": ["budget par enveloppes", "budget familial", "gérer son budget en couple", "suivre ses dépenses", "comment faire un budget", "budget mensuel", "application budget sans banque"] },
+    "pt": { "hl": "pt-BR", "gl": ["br", "pt"], "countries": ["bra", "prt"],
+      "seeds": ["orçamento familiar", "controle de gastos", "método dos envelopes", "como organizar as finanças do casal", "planilha de gastos", "como fazer orçamento mensal", "dividir despesas casal"] },
+    "es": { "hl": "es", "gl": ["es", "mx", "ar", "co"], "countries": ["esp", "mex", "arg", "col", "chl", "per", "usa"],
+      "seeds": ["presupuesto familiar", "método de los sobres", "control de gastos", "presupuesto en pareja", "cómo hacer un presupuesto mensual", "cómo ahorrar dinero", "gastos compartidos"] }
+  }
+}

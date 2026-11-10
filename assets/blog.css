@@ -1,0 +1,85 @@
+/* Blog pages and the "latest guides" block on the home pages. Tokens come from style.css. */
+
+.post {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px var(--space-l) 72px;
+}
+.breadcrumbs { font-size: 14px; color: var(--text-secondary); margin-bottom: var(--space-l); }
+.breadcrumbs a { color: var(--text-secondary); }
+
+.post h1 {
+  font-size: clamp(30px, 4.6vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-s);
+}
+.post-meta { font-size: 14px; color: var(--text-secondary); margin: 0 0 var(--space-xl); }
+.post article { font-size: 18px; line-height: 1.65; }
+.post article h2 { font-size: 26px; line-height: 1.25; letter-spacing: -0.01em; margin: 44px 0 var(--space-s); }
+.post article h3 { font-size: 20px; margin: var(--space-xl) 0 6px; }
+.post article p { margin: 0 0 var(--space-m); }
+.post article ul, .post article ol { margin: 0 0 var(--space-m); padding-left: 24px; }
+.post article li + li { margin-top: 6px; }
+.post article a { text-decoration: underline; text-underline-offset: 3px; }
+
+.table-scroll { overflow-x: auto; margin: 0 0 var(--space-l); }
+.post table { border-collapse: collapse; width: 100%; font-size: 16px; font-variant-numeric: tabular-nums; }
+.post th, .post td { padding: 10px 12px; border-bottom: 1px solid var(--outline); text-align: left; white-space: nowrap; }
+.post td:first-child, .post th:first-child { white-space: normal; min-width: 160px; }
+.post th { font-size: 14px; color: var(--text-secondary); font-weight: 600; }
+
+.post-cta {
+  margin: 40px 0;
+  padding: var(--space-xl) var(--space-l);
+  text-align: center;
+  background: var(--surface-elevated);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sheet);
+}
+.post article .post-cta h2 { margin: 0 0 var(--space-s); font-size: 24px; }
+.post-cta p { color: var(--text-secondary); font-size: 16px; max-width: 34em; margin: 0 auto var(--space-l); }
+.post-cta .appstore-badge { justify-content: center; }
+
+.post-back { margin-top: 48px; font-weight: 600; }
+
+.blog-index .lead { color: var(--text-secondary); font-size: 18px; margin: 0 0 var(--space-xl); }
+.post-list { list-style: none; margin: 0; padding: 0; }
+.post-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sheet);
+  padding: var(--space-l);
+  margin-bottom: var(--space-m);
+}
+.post-card h2 { font-size: 22px; line-height: 1.25; margin: 0 0 var(--space-s); color: var(--text-primary); }
+.post-card p { color: var(--text-secondary); margin: 0 0 var(--space-s); }
+.post-card .post-meta { margin: 0; }
+
+/* Home pages */
+.guide-list { list-style: none; margin: var(--space-l) 0 0; padding: 0; display: grid; gap: var(--space-m); grid-template-columns: repeat(3, 1fr); }
+.guide-list a {
+  display: block;
+  height: 100%;
+  background: var(--surface-elevated);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sheet);
+  padding: var(--space-l);
+}
+.guide-list a:hover { text-decoration: none; border-color: var(--accent); }
+.guide-list strong { display: block; color: var(--text-primary); font-size: 17px; line-height: 1.3; margin-bottom: 6px; }
+.guide-list span { color: var(--text-secondary); font-size: 15px; }
+.guide-all { margin: var(--space-l) 0 0; font-weight: 600; }
+
+@media (max-width: 860px) {
+  .guide-list { grid-template-columns: 1fr; }
+  .post article { font-size: 17px; }
+}
+
+/* Phone header: keep the brand on one line and the download button inside the screen. */
+@media (max-width: 480px) {
+  .site-header .wrap { gap: var(--space-s); padding: 0 var(--space-m); }
+  .brand { white-space: nowrap; }
+  .site-nav { gap: var(--space-s); }
+  .site-nav .btn-small { padding: 6px 12px; font-size: 14px; }
+}
