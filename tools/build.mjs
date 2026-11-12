@@ -26,9 +26,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
 const POSTS_DIR = path.join(ROOT, "blog", "posts");
 const CODES = Object.keys(LANGS);
-// Build inputs and GitHub Pages leftovers that must not be published.
+// Build inputs that must not be published.
 const NOT_PUBLISHED = new Set(["tools", "blog", "seo-agent", "src", "i18n", "notes", "node_modules", "dist",
-  "package.json", "package-lock.json", "README.md", "CNAME", ".nojekyll", ".gitignore", ".git",
+  "package.json", "package-lock.json", "README.md", ".gitignore", ".git",
   ".github", ".claude", ".DS_Store", "index.html", "sitemap.xml",
   ...CODES.filter((c) => LANGS[c].path).map((c) => LANGS[c].path)]);
 
