@@ -28,9 +28,6 @@
     // e.g. web_de_hero. Apple's limit for ct is 30 characters.
     var ct = src.utm_campaign || src.utm_source || ("web_" + pageLang() + "_" + badgeLocation(el));
     el.setAttribute("href", CAMPAIGN_URL + "&ct=" + encodeURIComponent(ct.slice(0, 30)) + "&mt=8");
-    el.addEventListener("click", function () {
-      if (window.plausible) plausible("appstore_click", { props: { lang: pageLang(), location: badgeLocation(el) } });
-    });
   });
 
   document.querySelectorAll(".js-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });

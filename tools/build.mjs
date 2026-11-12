@@ -18,7 +18,7 @@ import { LANGS, homeURL, blogURL } from "./i18n.mjs";
 const SITE = "https://billtrackerx.com";
 const BRAND = "Bill Tracker";
 const APPSTORE = "https://apps.apple.com/app/id6787081411";
-const ASSET_V = "2";            // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
+const ASSET_V = "3";           // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
 const LEGAL_LASTMOD = "2026-08-11";
 const V11 = !process.argv.includes("--no-v11");
 
@@ -290,7 +290,6 @@ ${alternates(alternatesByLang)}
   <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" type="application/rss+xml" title="${esc(L.blogTitle)}" href="${SITE}${blogURL(code)}rss.xml">
 ${[].concat(jsonLd).map(ldScript).join("\n")}
-  <script defer data-domain="billtrackerx.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 

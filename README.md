@@ -59,7 +59,7 @@ and deploys in 1–3 minutes. When the app changes, update `seo-agent/FACTS.md` 
 - [x] App is live — waitlist removed, App Store buttons everywhere (2026-09-26).
 - [x] Real localized app screenshots instead of the CSS mockup (2026-09-26).
 - [x] Home + invite page in all 8 app languages (2026-09-26). Native-speaker review still wanted.
-- [ ] **Analytics**: decide between Cloudflare Web Analytics and Plausible; today the pages load the Plausible snippet, but the site was never registered there. Original note: register `billtrackerx.com` in [Plausible](https://plausible.io) (or swap the snippet for PostHog). App Store clicks are sent as `appstore_click` with a `lang` prop.
+- [x] **Analytics** (decided 2026-11-13): no on-site tracker. Google Search Console (`sc-domain:billtrackerx.com`) covers search; installs per language and button come from the App Store campaign links (App Store Connect → Analytics → Acquisition → Campaigns). The unregistered Plausible snippet was removed. If visitor counts are ever needed, turn on Cloudflare Web Analytics (cookieless — no consent banner, no privacy-policy change). Adding GA4 would need a consent banner and a privacy-policy update.
 - [ ] Apple's localized "Download on the App Store" badges — only the English SVG is in `assets/` today.
 - [ ] Re-capture screenshots after 1.1.0 (the current set predates the new repeat button and "Remaining" labels).
 
