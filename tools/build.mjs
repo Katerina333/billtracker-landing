@@ -18,7 +18,7 @@ import { LANGS, homeURL, blogURL } from "./i18n.mjs";
 const SITE = "https://billtrackerx.com";
 const BRAND = "Bill Tracker";
 const APPSTORE = "https://apps.apple.com/app/id6787081411";
-const ASSET_V = "1";            // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
+const ASSET_V = "2";            // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
 const LEGAL_LASTMOD = "2026-08-11";
 const V11 = !process.argv.includes("--no-v11");
 
@@ -110,10 +110,44 @@ const LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-h
         <path d="M6 10.5 14 15l8-4.5M7.5 8h13A1.5 1.5 0 0 1 22 9.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 6 18.5v-9A1.5 1.5 0 0 1 7.5 8Z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`;
 const GLOBE = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 5.7 4 9s-1.5 6.4-4 9c-2.5-2.6-4-5.7-4-9s1.5-6.4 4-9Z"/></svg>`;
+const BURGER = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>`;
 
 const langItems = (code, hrefFor) => CODES.map((c) =>
   `          <li><a href="${hrefFor(c)}" hreflang="${LANGS[c].hreflang}" lang="${LANGS[c].hreflang}" data-lang="${c}"${
     c === code ? ' aria-current="true"' : ""}>${LANGS[c].label}</a></li>`).join("\n");
+
+// One header for every page type. Section links are same-page anchors on the home page and
+// point back to the home page everywhere else. The links collapse into a tap-to-open menu on
+// phones (see .nav-menu in assets/style.css); the language switch target differs per page, so
+// callers pass langHref.
+function siteNav(code, { onHome, langHref }) {
+  const L = LANGS[code];
+  const base = onHome ? "" : homeURL(code);
+  const links = [
+    `<a class="nav-link" href="${base}#features">${esc(t(code, "nav_features"))}</a>`,
+    `<a class="nav-link" href="${base}#how">${esc(t(code, "how_h2"))}</a>`,
+    `<a class="nav-link" href="${base}#faq">${esc(t(code, "nav_faq"))}</a>`,
+  ];
+  if (blogLangs.includes(code)) links.push(`<a class="nav-link" href="${blogURL(code)}">${esc(L.blog)}</a>`);
+  return `<nav class="site-nav" aria-label="Primary">
+      <div class="nav-menu">
+        <button type="button" class="nav-toggle" aria-label="${esc(L.menu)}" aria-expanded="false" aria-controls="nav-links">${BURGER}</button>
+        <div class="nav-panel" id="nav-links">
+          ${links.join("\n          ")}
+        </div>
+      </div>
+      <details class="lang-menu">
+        <summary aria-label="${esc(t(code, "lang_label"))}">
+          ${GLOBE}
+          <span>${code.toUpperCase()}</span>
+        </summary>
+        <ul>
+${langItems(code, langHref)}
+        </ul>
+      </details>
+      <a class="btn btn-primary btn-small" href="${APPSTORE}" data-app-store${onHome ? "" : ' data-location="blog"'}>${esc(t(code, "nav_download"))}</a>
+    </nav>`;
+}
 
 function alternates(urlsByLang) {
   const links = Object.entries(urlsByLang).map(([c, url]) =>
@@ -189,7 +223,7 @@ for (const code of CODES) {
     lang: L.hreflang, lang_short: code.toUpperCase(), url: `${SITE}${homeURL(code)}`, home: homeURL(code),
     og_locale: L.ogLocale, appstore_url: APPSTORE,
     hreflang: alternates(homes),
-    lang_menu: langItems(code, homeURL),
+    nav: siteNav(code, { onHome: true, langHref: homeURL }),
     redirect_script: code === "en" ? REDIRECT_SCRIPT : "",
     json_ld: jsonLd.map(ldScript).join("\n"),
     rss_link: hasBlog ? `  <link rel="alternate" type="application/rss+xml" title="${esc(L.blogTitle)}" href="${SITE}${blogURL(code)}rss.xml">\n` : "",
@@ -266,19 +300,7 @@ ${[].concat(jsonLd).map(ldScript).join("\n")}
       ${LOGO}
       ${BRAND}
     </a>
-    <nav class="site-nav">
-      <a class="nav-link" href="${blogURL(code)}">${esc(L.blog)}</a>
-      <details class="lang-menu">
-        <summary aria-label="${esc(t(code, "lang_label"))}">
-          ${GLOBE}
-          <span>${code.toUpperCase()}</span>
-        </summary>
-        <ul>
-${langItems(code, menuHref)}
-        </ul>
-      </details>
-      <a class="btn btn-primary btn-small" href="${APPSTORE}" data-app-store data-location="blog">${esc(t(code, "nav_download"))}</a>
-    </nav>
+    ${siteNav(code, { onHome: false, langHref: menuHref })}
   </div>
 </header>
 

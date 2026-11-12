@@ -40,12 +40,35 @@
       try { localStorage.setItem("bt_lang", a.getAttribute("data-lang")); } catch (e) {}
     });
   });
+  // Section menu (phones): a button toggles .open on its .nav-menu.
+  function closeNav() {
+    document.querySelectorAll(".nav-menu.open").forEach(function (m) {
+      m.classList.remove("open");
+      var btn = m.querySelector(".nav-toggle");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+    });
+  }
+  document.querySelectorAll(".nav-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+      var menu = btn.closest(".nav-menu");
+      var open = menu.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
+  // Close any open menu on an outside click, on Escape, or when a link inside the section menu is
+  // followed (so a same-page anchor on a phone doesn't leave the menu hanging open).
   document.addEventListener("click", function (ev) {
     document.querySelectorAll(".lang-menu[open]").forEach(function (d) {
       if (!d.contains(ev.target)) d.removeAttribute("open");
     });
+    var menu = document.querySelector(".nav-menu.open");
+    if (menu && (!menu.contains(ev.target) || ev.target.closest(".nav-panel a"))) closeNav();
   });
   document.addEventListener("keydown", function (ev) {
-    if (ev.key === "Escape") document.querySelectorAll(".lang-menu[open]").forEach(function (d) { d.removeAttribute("open"); });
+    if (ev.key !== "Escape") return;
+    document.querySelectorAll(".lang-menu[open]").forEach(function (d) { d.removeAttribute("open"); });
+    closeNav();
   });
 })();

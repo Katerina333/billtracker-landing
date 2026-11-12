@@ -1,5 +1,5 @@
 {
-  "meta_title": "Bill Tracker — Envelope budgeting for your whole household",
+  "meta_title": "Bill Tracker — Envelope budgeting app for couples & families",
   "meta_desc": "Simple envelope budgeting for couples and families. Plan money together, log expenses in seconds and see what's left. No bank login. Free on the App Store.",
   "og_title": "Bill Tracker — Budget together, envelope by envelope",
   "lang_label": "Language",
@@ -74,7 +74,7 @@
   "prem_5": "Lifetime option — pay once, no subscription",
   "pricing_fine": "Prices are shown in your local currency in the App Store. Subscriptions renew automatically until cancelled.",
 
-  "faq_h2": "Questions",
+  "faq_h2": "Frequently asked questions",
   "q1": "Do I need to connect my bank?",
   "a1": "No, never. You log what you spend yourself, so Bill Tracker works with every bank in every country — and never sees your accounts.",
   "q2": "Do I need to create an account?",
