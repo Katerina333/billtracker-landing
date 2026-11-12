@@ -11,3 +11,8 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# The project's own pages.dev address serves the same site. Keep it out of Google so only
+# billtrackerx.com is indexed. Matches that host only — the custom domain is unaffected.
+https://billtracker-landing.pages.dev/*
+  X-Robots-Tag: noindex
