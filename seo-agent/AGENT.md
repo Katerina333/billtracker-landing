@@ -1,9 +1,10 @@
 # Daily SEO agent — runbook
 
 Every morning a scheduled Claude Code task (Claude desktop app → Scheduled → `seo-agent-billtracker`)
-works through this file in the landing repo clone
-`/Users/macbookpro/Documents/Bill Tracker/billtracker-landing` (branch `cloudflare`, which is what
-Cloudflare Pages deploys). It publishes **one** improvement a day, in all 8 site languages
+works through this file in its own dedicated clone of the landing repo
+`/Users/macbookpro/Documents/Bill Tracker/billtracker-landing-seo-agent` (branch `cloudflare`, which
+is what Cloudflare Pages deploys). The owner's working copy (`…/billtracker-landing`, no suffix) is
+never touched by the agent. It publishes **one** improvement a day, in all 8 site languages
 (en uk hu nb de fr pt es), with no human review — so the guardrails below are not optional.
 
 | File | What it is |
@@ -13,6 +14,7 @@ Cloudflare Pages deploys). It publishes **one** improvement a day, in all 8 site
 | `FACTS.md` | the only product claims allowed |
 | `validate.mjs` | guardrails; `publish.sh` won't push without it |
 | `publish.sh` | validate → build → commit → push |
+| `submit-sitemap.sh` | tells Search Console the sitemap changed (step 10); never fails a run |
 | `log.md` | one line per run — read it first, append to it last |
 | `data/` | daily keyword snapshots |
 | `../blog/posts/<lang>/<slug>.md` | the posts |
@@ -20,7 +22,7 @@ Cloudflare Pages deploys). It publishes **one** improvement a day, in all 8 site
 
 ## The run
 
-1. **Sync.** `cd "/Users/macbookpro/Documents/Bill Tracker/billtracker-landing" && git checkout cloudflare && git pull --ff-only`.
+1. **Sync.** `cd "/Users/macbookpro/Documents/Bill Tracker/billtracker-landing-seo-agent" && git checkout cloudflare && git pull --ff-only`.
    If the tree is dirty or the pull fails, stop and report — don't publish on top of unknown state.
 2. **Read** `seo-agent/log.md` (what was done before), `seo-agent/FACTS.md`, and
    `blog/posts/en/*.md` (house style; the newest one is the reference for structure and tone).
@@ -85,18 +87,26 @@ Cloudflare Pages deploys). It publishes **one** improvement a day, in all 8 site
 9. **Publish:** `seo-agent/publish.sh "SEO agent: <short title> (<date>)"`.
 10. **Verify live** after ~3 minutes (`curl -s -o /dev/null -w '%{http_code}' <url>` for the English
     URL and one other language; retry a few times up to ~8 minutes). A 404 after that means the deploy
-    failed — say so in the report.
-11. **Report** in 3–5 lines: what was published (URLs), the target keywords, the data source, and
-    anything that needs a human (Search Console auth, a failed deploy).
+    failed — say so in the report. Once the pages are live, run `seo-agent/submit-sitemap.sh` so
+    Google re-reads the sitemap and finds the new URLs. If it says the deploy isn't live yet, run it
+    once more a couple of minutes later. It never fails the run: a `⚠` line just goes into the report.
+11. **Report** in 3–5 lines: what was published (URLs), the target keywords, the data source,
+    whether the sitemap was submitted, and anything that needs a human (Search Console auth, a
+    failed deploy).
 
 If anything in steps 1–10 fails in a way you can't fix within the rules, **publish nothing** and
 report why. A missed day is fine; a broken or wrong page is not.
 
 ## Search Console access
 
-`gum` (v2.3.1, `~/.local/bin/gum`) already holds a read-only grant
-(`webmasters.readonly`) for the owner's Google account. `pull-keywords.mjs` finds the
-billtrackerx.com property by host (Domain or URL-prefix property, owner/full access only). Check:
+`gum` (v2.3.1, `~/.local/bin/gum`) is signed in to the owner's Google account. `pull-keywords.mjs`
+reads with `webmasters.readonly` and finds the billtrackerx.com property by host (Domain or
+URL-prefix property, owner/full access only). Check:
 `~/.local/bin/gum read searchconsole.sites.list --output json`. If the property is missing, the
-agent runs on autocomplete alone and says so. Read-only on purpose: the agent never changes
-anything in Search Console.
+agent runs on autocomplete alone and says so.
+
+The **only** change the agent makes in Search Console is resubmitting the sitemap
+(`submit-sitemap.sh`), which needs the `webmasters` scope. If that script reports `SCOPE_MISSING`,
+the owner grants it once with
+`~/.local/bin/gum auth login --scope https://www.googleapis.com/auth/webmasters,https://www.googleapis.com/auth/webmasters.readonly`.
+Never call any other Search Console write or destructive op (sites.add/delete, sitemaps.delete).
