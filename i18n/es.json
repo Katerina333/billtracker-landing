@@ -89,6 +89,20 @@
   "cta_h2": "Empezad hoy vuestro presupuesto en familia",
   "cta_lead": "Tu primer presupuesto está a tres toques.",
 
+  "play_top": "Próximamente en",
+  "play_aria": "App para Android próximamente en Google Play — únete a la lista de espera",
+  "wl_title": "Bill Tracker para Android está en camino",
+  "wl_text": "Déjanos tu correo y te escribiremos una sola vez: cuando la app esté en Google Play. Sin boletines ni spam.",
+  "wl_email_label": "Tu correo electrónico",
+  "wl_consent": "Avisadme por correo cuando salga la app para Android. Puedo pedir que me borréis en cualquier momento — consulta la <a href=\"/privacy/#waitlist\">política de privacidad</a>.",
+  "wl_submit": "Unirme a la lista de espera",
+  "wl_close": "Cerrar",
+  "wl_done_title": "¡Ya estás en la lista!",
+  "wl_done_text": "Te escribiremos en cuanto Bill Tracker esté en Google Play. Mientras tanto, está en la App Store para iPhone y iPad.",
+  "wl_err_email": "Introduce un correo electrónico válido.",
+  "wl_err_consent": "Marca la casilla para que podamos escribirte.",
+  "wl_err_network": "Algo ha fallado. Vuelve a intentarlo en un momento.",
+
   "footer_privacy": "Privacidad",
   "footer_terms": "Términos",
   "footer_contact": "Contacto"

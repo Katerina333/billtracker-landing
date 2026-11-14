@@ -89,6 +89,20 @@
   "cta_h2": "Begynn å budsjettere sammen i dag",
   "cta_lead": "Ditt første budsjett er tre trykk unna.",
 
+  "play_top": "Kommer snart på",
+  "play_aria": "Android-appen kommer snart på Google Play — bli med på ventelisten",
+  "wl_title": "Bill Tracker for Android er på vei",
+  "wl_text": "Legg igjen e-posten din, så skriver vi én gang — når appen er på Google Play. Ingen nyhetsbrev, ingen spam.",
+  "wl_email_label": "E-posten din",
+  "wl_consent": "Send meg en e-post når Android-appen kommer. Jeg kan når som helst be om å bli slettet — se <a href=\"/privacy/#waitlist\">personvernerklæringen</a>.",
+  "wl_submit": "Bli med på ventelisten",
+  "wl_close": "Lukk",
+  "wl_done_title": "Du står på listen!",
+  "wl_done_text": "Vi sender deg en e-post så snart Bill Tracker er på Google Play. Frem til da finner du den i App Store for iPhone og iPad.",
+  "wl_err_email": "Skriv inn en gyldig e-postadresse.",
+  "wl_err_consent": "Kryss av i boksen, så vi kan sende deg en e-post.",
+  "wl_err_network": "Noe gikk galt. Prøv igjen om litt.",
+
   "footer_privacy": "Personvern",
   "footer_terms": "Vilkår",
   "footer_contact": "Kontakt"

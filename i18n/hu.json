@@ -89,6 +89,20 @@
   "cta_h2": "Kezdjétek el ma a közös tervezést",
   "cta_lead": "Az első kereted három koppintásra van.",
 
+  "play_top": "Hamarosan elérhető",
+  "play_aria": "Az Android-app hamarosan elérhető a Google Playen — iratkozz fel a várólistára",
+  "wl_title": "Úton a Bill Tracker Androidra",
+  "wl_text": "Add meg az e-mail-címed, és egyszer írunk: amikor megjelenik a Google Playen. Nincs hírlevél, nincs spam.",
+  "wl_email_label": "E-mail-címed",
+  "wl_consent": "Kérek egy e-mailt, amikor megjelenik az Android-verzió. Bármikor kérhetem a törlésemet — lásd az <a href=\"/privacy/#waitlist\">adatvédelmi tájékoztatót</a>.",
+  "wl_submit": "Feliratkozom a várólistára",
+  "wl_close": "Bezárás",
+  "wl_done_title": "Felkerültél a listára!",
+  "wl_done_text": "Írunk, amint a Bill Tracker megjelenik a Google Playen. Addig is elérhető az App Store-ban iPhone-ra és iPadre.",
+  "wl_err_email": "Adj meg egy érvényes e-mail-címet.",
+  "wl_err_consent": "Jelöld be a négyzetet, hogy írhassunk neked.",
+  "wl_err_network": "Valami hiba történt. Próbáld újra egy kicsit később.",
+
   "footer_privacy": "Adatvédelem",
   "footer_terms": "Feltételek",
   "footer_contact": "Kapcsolat"

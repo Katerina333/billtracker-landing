@@ -89,6 +89,20 @@
   "cta_h2": "Commencez votre budget à plusieurs dès aujourd'hui",
   "cta_lead": "Votre premier budget est à trois gestes.",
 
+  "play_top": "Bientôt sur",
+  "play_aria": "Application Android bientôt sur Google Play — rejoindre la liste d'attente",
+  "wl_title": "Bill Tracker arrive sur Android",
+  "wl_text": "Laissez votre e-mail : nous vous écrirons une seule fois, quand l'app sera sur Google Play. Pas de newsletter, pas de spam.",
+  "wl_email_label": "Votre e-mail",
+  "wl_consent": "Prévenez-moi par e-mail à la sortie de l'app Android. Je peux demander ma suppression à tout moment — voir la <a href=\"/privacy/#waitlist\">politique de confidentialité</a>.",
+  "wl_submit": "Rejoindre la liste d'attente",
+  "wl_close": "Fermer",
+  "wl_done_title": "Vous êtes sur la liste !",
+  "wl_done_text": "Nous vous écrirons dès que Bill Tracker sera sur Google Play. En attendant, l'app est sur l'App Store pour iPhone et iPad.",
+  "wl_err_email": "Veuillez saisir une adresse e-mail valide.",
+  "wl_err_consent": "Cochez la case pour que nous puissions vous écrire.",
+  "wl_err_network": "Une erreur s'est produite. Réessayez dans un instant.",
+
   "footer_privacy": "Confidentialité",
   "footer_terms": "Conditions",
   "footer_contact": "Contact"

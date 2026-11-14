@@ -18,7 +18,7 @@ import { LANGS, homeURL, blogURL } from "./i18n.mjs";
 const SITE = "https://billtrackerx.com";
 const BRAND = "Bill Tracker";
 const APPSTORE = "https://apps.apple.com/app/id6787081411";
-const ASSET_V = "3";           // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
+const ASSET_V = "4";           // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
 const LEGAL_LASTMOD = "2026-08-11";
 const V11 = !process.argv.includes("--no-v11");
 

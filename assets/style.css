@@ -373,6 +373,91 @@ a.btn-tonal {
 .cta-box .lead { margin: 0 auto var(--space-l); }
 
 .cta-box .appstore-badge { justify-content: center; }
+.cta-badges { justify-content: center; margin-top: 0; }
+
+/* ---------- Google Play "coming soon" badge → Android waitlist ---------- */
+/* Same height and frame as Apple's black badge so the two sit as a pair. Our own artwork on
+   purpose: Google's official badge may only link to an app that is already on Google Play. */
+
+.play-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 48px;
+  padding: 0 16px 0 13px;
+  background: #000;
+  color: #fff;
+  border: 1px solid #a6a6a6;
+  border-radius: 9px;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.play-badge:hover { background: #1c1c1e; }
+.play-badge:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pb-text { display: flex; flex-direction: column; line-height: 1.1; }
+.pb-top { font-size: 11px; font-weight: 500; letter-spacing: 0.01em; }
+.pb-name { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+
+/* ---------- Waitlist dialog ---------- */
+
+dialog.waitlist {
+  width: min(440px, calc(100% - 32px));
+  padding: 28px 24px 24px;
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-sheet);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  box-shadow: 0 24px 64px rgb(0 0 0 / 0.25);
+}
+dialog.waitlist::backdrop { background: rgb(0 0 0 / 0.45); }
+.waitlist h2 { font-size: 22px; line-height: 1.25; margin: 0 32px var(--space-s) 0; }
+.wl-text { margin: 0 0 var(--space-l); color: var(--text-secondary); font-size: 16px; }
+.wl-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.wl-close:hover { color: var(--text-primary); }
+.wl-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.wl-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 17px;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-card);
+}
+.wl-input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.wl-input[aria-invalid="true"] { border-color: var(--danger); }
+.wl-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: var(--space-m) 0 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.wl-consent input { width: 18px; height: 18px; margin: 2px 0 0; flex: none; accent-color: var(--accent); }
+.wl-error { margin: var(--space-m) 0 0; color: var(--danger); font-size: 14px; }
+.wl-submit { width: 100%; margin-top: var(--space-l); }
+.wl-submit[disabled] { opacity: 0.6; cursor: progress; }
+.wl-view[data-wl-done] .btn { margin-top: var(--space-s); }
+/* Honeypot: off-screen for people, still filled in by naive bots. */
+.wl-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ---------- Screenshots ---------- */
 

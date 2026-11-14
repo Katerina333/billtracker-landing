@@ -1,4 +1,4 @@
-/* Bill Tracker site script: language memory, language menu, App Store campaign links. */
+/* Bill Tracker site script: language memory, language menu, App Store campaign links, Android waitlist. */
 (function () {
   "use strict";
 
@@ -29,6 +29,69 @@
     var ct = src.utm_campaign || src.utm_source || ("web_" + pageLang() + "_" + badgeLocation(el));
     el.setAttribute("href", CAMPAIGN_URL + "&ct=" + encodeURIComponent(ct.slice(0, 30)) + "&mt=8");
   });
+
+  // Android waitlist: the "Google Play — coming soon" badge opens #waitlist, which inserts one row
+  // into Supabase `waitlist_signups` (app repo migration 0009). The key is the publishable one the
+  // iOS app already ships; the table is insert-only for it, nobody can read the list from outside.
+  // 201 = added, 409 = already on the list — both show the same thank-you.
+  var WL_URL = "https://eyrnbvqoxireqvfcqqks.supabase.co/rest/v1/waitlist_signups";
+  var WL_KEY = "sb_publishable_ji-GB2VUssSa8ssW7DsKRQ_dRQ9N5Xa";
+  var WL_LANGS = ["en", "uk", "hu", "nb", "de", "fr", "pt", "es"];
+  var wl = document.getElementById("waitlist");
+  if (wl && typeof wl.showModal === "function") {
+    var form = wl.querySelector("form"), email = form.elements.email, consent = form.elements.consent;
+    var errorEl = wl.querySelector(".wl-error"), submit = wl.querySelector(".wl-submit");
+    var formView = wl.querySelector("[data-wl-form]"), doneView = wl.querySelector("[data-wl-done]");
+    var wlSource = "hero";
+
+    wl.querySelectorAll(".wl-consent a").forEach(function (a) { a.target = "_blank"; a.rel = "noopener"; });
+    function showError(msg, field) {
+      errorEl.textContent = msg;
+      errorEl.hidden = !msg;
+      email.setAttribute("aria-invalid", field === email ? "true" : "false");
+      if (field) field.focus();
+    }
+    function showDone() { formView.hidden = true; doneView.hidden = false; doneView.querySelector("button").focus(); }
+
+    document.querySelectorAll("[data-waitlist]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        wlSource = badgeLocation(btn);
+        showError("");
+        wl.showModal();
+        if (!formView.hidden) email.focus();
+      });
+    });
+    wl.querySelectorAll("[data-wl-close]").forEach(function (b) { b.addEventListener("click", function () { wl.close(); }); });
+    // A click on the backdrop lands on the <dialog> itself.
+    wl.addEventListener("click", function (ev) { if (ev.target === wl) wl.close(); });
+
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var value = email.value.trim().toLowerCase();
+      if (value.length < 6 || value.length > 254 || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+        return showError(wl.dataset.errEmail, email);
+      }
+      if (!consent.checked) return showError(wl.dataset.errConsent, consent);
+      if (form.elements.website.value) return showDone();          // honeypot: a bot, pretend it worked
+      showError("");
+      submit.disabled = true;
+      var lang = pageLang();
+      fetch(WL_URL, {
+        method: "POST",
+        headers: { apikey: WL_KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({
+          email: value, platform: "android", consent: true,
+          language: WL_LANGS.indexOf(lang) !== -1 ? lang : "en",
+          source: ("web_" + wlSource).slice(0, 40),
+        }),
+      }).then(function (res) {
+        if (res.status === 201 || res.status === 409) showDone();
+        else showError(wl.dataset.errNetwork);
+      }).catch(function () {
+        showError(wl.dataset.errNetwork);
+      }).then(function () { submit.disabled = false; });
+    });
+  }
 
   document.querySelectorAll(".js-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });
   // Remember an explicit language pick so the home page stops auto-redirecting.

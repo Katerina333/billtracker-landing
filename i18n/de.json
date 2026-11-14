@@ -89,6 +89,20 @@
   "cta_h2": "Fangt heute an, gemeinsam zu haushalten",
   "cta_lead": "Dein erstes Budget ist drei Tipps entfernt.",
 
+  "play_top": "Demnächst bei",
+  "play_aria": "Android-App demnächst bei Google Play — trag dich in die Warteliste ein",
+  "wl_title": "Bill Tracker für Android ist unterwegs",
+  "wl_text": "Hinterlass deine E-Mail-Adresse und wir schreiben dir einmal — sobald die App bei Google Play ist. Kein Newsletter, kein Spam.",
+  "wl_email_label": "Deine E-Mail-Adresse",
+  "wl_consent": "Schreibt mir, wenn die Android-App erscheint. Ich kann jederzeit verlangen, dass meine Adresse gelöscht wird — siehe <a href=\"/privacy/#waitlist\">Datenschutzerklärung</a>.",
+  "wl_submit": "Auf die Warteliste",
+  "wl_close": "Schließen",
+  "wl_done_title": "Du stehst auf der Liste!",
+  "wl_done_text": "Wir schreiben dir, sobald Bill Tracker bei Google Play ist. Bis dahin gibt es die App im App Store für iPhone und iPad.",
+  "wl_err_email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+  "wl_err_consent": "Bitte setz das Häkchen, damit wir dir schreiben dürfen.",
+  "wl_err_network": "Etwas ist schiefgelaufen. Bitte versuch es gleich noch einmal.",
+
   "footer_privacy": "Datenschutz",
   "footer_terms": "Nutzungsbedingungen",
   "footer_contact": "Kontakt"

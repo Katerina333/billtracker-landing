@@ -45,6 +45,14 @@ Language routing: English is at `/` (x-default), others at `/<lang>/`, all linke
 `hreflang`. On a first visit `/` redirects to the browser's language if we have it; a pick in
 the language menu is remembered (`localStorage.bt_lang`) and wins over the browser.
 
+**Android waitlist.** The "Coming soon on Google Play" buttons carry `data-waitlist` and open the
+`#waitlist` dialog in `src/index.html`. `assets/site.js` posts the email to Supabase table
+`waitlist_signups` (app repo migration 0009) with the publishable key. The table is insert-only for
+that key, so the list can't be read from the site. Read or export it in the Supabase dashboard →
+Table Editor. 201 and 409 (already on the list) both show the thank-you. Strings are `play_*` and `wl_*` in
+`i18n/*.json`; the privacy policy section is `/privacy/#waitlist`. The badge is our own artwork,
+because Google's official badge may only point at an app that is live on Google Play.
+
 App Store buttons carry `data-app-store`; `assets/site.js` rewrites them to Apple campaign links
 (`…/app/apple-store/id6787081411?pt=128983894&ct=web_<lang>_<nav|hero|footer|blog>&mt=8`), visible in
 App Store Connect → Analytics → Acquisition → Campaigns once a campaign has 5 installs.

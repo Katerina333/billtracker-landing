@@ -89,6 +89,20 @@
   "cta_h2": "Start budgeting together today",
   "cta_lead": "Your first budget is three taps away.",
 
+  "play_top": "Coming soon on",
+  "play_aria": "Android app coming soon on Google Play — join the waitlist",
+  "wl_title": "Bill Tracker for Android is on its way",
+  "wl_text": "Leave your email and we'll write to you once — when it's on Google Play. No newsletter, no spam.",
+  "wl_email_label": "Your email",
+  "wl_consent": "Email me when the Android app is out. I can ask to be removed at any time — see the <a href=\"/privacy/#waitlist\">privacy policy</a>.",
+  "wl_submit": "Join the waitlist",
+  "wl_close": "Close",
+  "wl_done_title": "You're on the list!",
+  "wl_done_text": "We'll email you as soon as Bill Tracker is on Google Play. Until then, it's on the App Store for iPhone and iPad.",
+  "wl_err_email": "Please enter a valid email address.",
+  "wl_err_consent": "Please tick the box so we may email you.",
+  "wl_err_network": "Something went wrong. Please try again in a moment.",
+
   "footer_privacy": "Privacy",
   "footer_terms": "Terms",
   "footer_contact": "Contact"
