@@ -27,7 +27,10 @@ never touched by the agent. It publishes **one** improvement a day, in all 8 sit
 2. **Read** `seo-agent/log.md` (what was done before), `seo-agent/FACTS.md`, and
    `blog/posts/en/*.md` (house style; the newest one is the reference for structure and tone).
 3. **Pull keywords:** `node seo-agent/pull-keywords.mjs`. If Search Console is UNAVAILABLE, carry on
-   with autocomplete, and put the error in the log line and the final report.
+   with autocomplete, and put the error in the log line and the final report. The same goes for
+   `## Autocomplete: NO DATA for …` or `⚠ failed requests` lines: carry on with what you have (seed
+   keywords from `config.json` for an empty language), and name the languages and errors in the log
+   line and the report.
 4. **Pick today's target** — one search intent, the same topic for all languages (each language may
    target its own local phrasing of it). Prefer, in order:
    1. Search Console queries where we get impressions but sit at position ~5–30 with low CTR and no

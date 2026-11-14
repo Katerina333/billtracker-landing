@@ -91,24 +91,41 @@ try {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function suggest(q, hl, gl) {
   const url = `https://suggestqueries.google.com/complete/search?client=firefox&hl=${hl}&gl=${gl}&q=${encodeURIComponent(q)}`;
-  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" } });
-  if (!res.ok) throw new Error(`autocomplete ${res.status}`);
+  const res = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(10000) });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());
   // The endpoint answers in the market's legacy charset unless asked otherwise; utf-8 works for these langs.
   return JSON.parse(buf.toString("utf8"))[1] || [];
 }
+// Google throttles bursts: on 2026-11-14 every language after English came back empty and the run
+// never knew why. So each request gets up to 3 tries with growing pauses, and what still fails is
+// counted per language and printed in the brief instead of being swallowed.
+async function suggestWithRetry(q, hl, gl) {
+  let last;
+  for (const wait of [0, 3000, 10000]) {
+    if (wait) await sleep(wait);
+    try { return await suggest(q, hl, gl); } catch (err) { last = err; }
+  }
+  throw last;
+}
 
 const suggestions = {};
+const suggestErrors = {};
 if (!process.argv.includes("--no-suggest")) {
   for (const [code, L] of Object.entries(config.langs)) {
     const seen = new Set();
+    const errs = {};
     for (const seed of L.seeds) {
       for (const gl of L.gl.slice(0, 2)) {
-        try { for (const s of await suggest(seed, L.hl, gl)) seen.add(s); } catch { /* best effort */ }
-        await sleep(250);
+        try { for (const s of await suggestWithRetry(seed, L.hl, gl)) seen.add(s); } catch (err) {
+          const why = String(err.cause?.code || err.name === "TimeoutError" && "timeout" || err.message).slice(0, 60);
+          errs[why] = (errs[why] || 0) + 1;
+        }
+        await sleep(400);
       }
     }
     suggestions[code] = [...seen];
+    if (Object.keys(errs).length) suggestErrors[code] = errs;
   }
 }
 
@@ -139,7 +156,7 @@ for (const code of Object.keys(config.langs)) {
 // ---------------------------------------------------------------------------------------------
 // Save + brief
 
-const data = { date: today, gsc, suggestions, published, homeFaq };
+const data = { date: today, gsc, suggestions, suggestErrors, published, homeFaq };
 fs.mkdirSync(path.join(AGENT, "data"), { recursive: true });
 // Keep 90 days of snapshots.
 for (const name of fs.readdirSync(path.join(AGENT, "data"))) {
@@ -168,8 +185,17 @@ if (gsc.ok) {
 } else {
   lines.push(`## Search Console: UNAVAILABLE`, gsc.error, gsc.fix, "");
 }
+const emptyLangs = Object.entries(suggestions).filter(([, list]) => !list.length).map(([code]) => code);
+if (emptyLangs.length) {
+  lines.push(`## Autocomplete: NO DATA for ${emptyLangs.join(", ")}`,
+    "Requests failed even after retries (see the errors below). Say so in the log line and the report.", "");
+}
 for (const [code, list] of Object.entries(suggestions)) {
-  lines.push(`### ${code} — autocomplete (${list.length})`, list.slice(0, 40).join(" | "), "");
+  lines.push(`### ${code} — autocomplete (${list.length})`);
+  if (suggestErrors[code]) {
+    lines.push(`⚠ failed requests: ${Object.entries(suggestErrors[code]).map(([why, n]) => `${why} ×${n}`).join(", ")}`);
+  }
+  lines.push(list.slice(0, 40).join(" | "), "");
 }
 lines.push("## Already published");
 for (const p of published.filter((p) => p.lang === "en")) lines.push(`- ${p.date} ${p.key}: ${p.title}`);
