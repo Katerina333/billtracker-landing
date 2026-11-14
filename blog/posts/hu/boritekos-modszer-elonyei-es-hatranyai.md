@@ -3,6 +3,7 @@ title: A borítékos módszer előnyei és hátrányai: nektek való?
 description: A borítékos módszer előnyei és hátrányai, miben más, mint a sima kiadáskövetés, és egy forintos havi példa, hogy eldönthesd, működne-e nálatok.
 date: 2026-11-14
 key: envelope-budgeting-pros-cons
+cluster: envelope-budgeting-app
 keywords: borítékos módszer előnyei és hátrányai, borítékos módszer, borítékos költségvetés, borítékos módszer hátrányai, borítékos módszer vagy kiadáskövetés, borítékrendszer, borítékos módszer példa
 ---
 

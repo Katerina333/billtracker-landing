@@ -3,6 +3,7 @@ title: Método dos envelopes para casais: como começar em uma noite
 description: Guia prático do método dos envelopes para casais: escolham os envelopes, definam os valores pelo mês passado e mantenham um orçamento que os dois confiam.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: método dos envelopes para casais, orçamento de casal, como organizar as finanças do casal, orçamento em envelopes, orçamento doméstico, controle de gastos do casal, planejamento financeiro a dois
 ---
 

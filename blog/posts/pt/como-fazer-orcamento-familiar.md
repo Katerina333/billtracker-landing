@@ -3,6 +3,7 @@ title: Como fazer orçamento familiar: um plano mensal que funciona
 description: Como fazer orçamento familiar passo a passo: partir da renda real, escolher 8 a 10 envelopes, prever os gastos anuais e dos filhos e revisar toda semana.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: como fazer orçamento familiar, orçamento familiar, como fazer orçamento mensal familiar, orçamento familiar exemplo, orçamento familiar mensal, controle de gastos da família, planejamento financeiro familiar
 ---
 

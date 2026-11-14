@@ -3,6 +3,7 @@ title: Konvoluttbudsjett for par: kom i gang på én kveld
 description: Praktisk guide til konvoluttbudsjett for par: velg konvolutter, sett beløp ut fra forrige måneds forbruk og hold ett felles budsjett dere begge stoler på.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: konvoluttbudsjett for par, konvoluttbudsjett, felles budsjett, budsjett for par, felles økonomi, husholdningsbudsjett, sette opp budsjett sammen
 ---
 

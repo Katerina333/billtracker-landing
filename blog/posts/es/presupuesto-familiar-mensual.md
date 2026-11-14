@@ -3,6 +3,7 @@ title: Presupuesto familiar mensual: cómo hacerlo paso a paso
 description: Cómo hacer un presupuesto familiar mensual: parte del ingreso real, elige de 8 a 10 sobres, prevé los gastos anuales y de los hijos y revísalo cada semana.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: presupuesto familiar mensual, presupuesto familiar, cómo hacer un presupuesto familiar, presupuesto familiar ejemplo, presupuesto familiar ingresos y egresos, control de gastos familiar, presupuesto del hogar
 ---
 

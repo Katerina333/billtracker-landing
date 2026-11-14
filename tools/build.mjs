@@ -3,7 +3,12 @@
 //   2. renders the home page in every language from src/index.html + i18n/<lang>.json,
 //      with the SEO agent's FAQ items (blog/faq/<lang>.html), the newest guides and JSON-LD,
 //   3. renders the blog from blog/posts/<lang>/<slug>.md into /<lang>/blog/<slug>/ (English: /blog/),
-//   4. writes sitemap.xml (with hreflang alternates) and one RSS feed per language.
+//   4. renders service pages (product / use-case landing pages) from blog/pages/<lang>/<slug>.md into
+//      /<lang>/<slug>/ (English: /<slug>/),
+//   5. writes sitemap.xml (with hreflang alternates) and one RSS feed per language.
+//
+// The SEO agent may also tune a whitelisted set of home-page strings per language in
+// blog/home/<lang>.json (HOME_SEO_KEYS in i18n.mjs); those win over i18n/<lang>.json.
 //
 // No framework on purpose. Template syntax in src/index.html: {{key}} is HTML-escaped, {{{key}}} raw.
 // A key "foo_v11" replaces "foo" unless --no-v11 is passed; <!--v11-->…<!--/v11--> blocks are then
@@ -13,18 +18,20 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { marked } from "marked";
-import { LANGS, homeURL, blogURL } from "./i18n.mjs";
+import { LANGS, homeURL, blogURL, pageURL, HOME_SEO_KEYS, RESERVED_SLUGS } from "./i18n.mjs";
 
 const SITE = "https://billtrackerx.com";
 const BRAND = "Bill Tracker";
 const APPSTORE = "https://apps.apple.com/app/id6787081411";
-const ASSET_V = "4";           // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
+const ASSET_V = "5";           // bump when assets/style.css, blog.css or site.js change (24 h edge cache)
 const LEGAL_LASTMOD = "2026-08-11";
 const V11 = !process.argv.includes("--no-v11");
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
 const POSTS_DIR = path.join(ROOT, "blog", "posts");
+const PAGES_DIR = path.join(ROOT, "blog", "pages");
+
 const CODES = Object.keys(LANGS);
 // Build inputs that must not be published.
 const NOT_PUBLISHED = new Set(["tools", "blog", "seo-agent", "src", "i18n", "notes", "node_modules", "dist",
@@ -65,8 +72,19 @@ for (const code of CODES) {
   const missing = Object.keys(base).filter((k) => !(k in strings[code]));
   if (missing.length) throw new Error(`i18n/${code}.json is missing keys: ${missing.join(", ")}`);
 }
-/** A home-page string, with its 1.1 variant when that is on. */
+// Home-page copy the SEO agent tuned for keywords (blog/home/<lang>.json).
+const homeSeo = {};
+for (const code of CODES) {
+  const file = path.join(ROOT, "blog", "home", `${code}.json`);
+  homeSeo[code] = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : {};
+  for (const key of Object.keys(homeSeo[code])) {
+    if (!key.startsWith("_") && !HOME_SEO_KEYS.includes(key)) throw new Error(`blog/home/${code}.json: key "${key}" may not be overridden`);
+  }
+}
+
+/** A home-page string: the SEO agent's tuned version, else the 1.1 variant when that is on, else i18n. */
 const t = (code, key) => {
+  if (!key.startsWith("_") && typeof homeSeo[code][key] === "string") return homeSeo[code][key];
   const S = strings[code];
   if (V11 && `${key}_v11` in S) return S[`${key}_v11`];
   if (!(key in S)) throw new Error(`missing string '${key}' for lang '${code}'`);
@@ -99,6 +117,39 @@ for (const code of CODES) {
   }
 }
 posts.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+
+const servicePages = [];
+for (const code of CODES) {
+  const dir = path.join(PAGES_DIR, code);
+  if (!fs.existsSync(dir)) continue;
+  for (const name of fs.readdirSync(dir).filter((n) => n.endsWith(".md"))) {
+    const slug = name.replace(/\.md$/, "");
+    if (RESERVED_SLUGS.has(slug)) throw new Error(`blog/pages/${code}/${name}: slug "${slug}" is reserved`);
+    const sp = parsePost(path.join(dir, name));
+    for (const field of ["h1", "lead"]) if (!sp[field]) throw new Error(`blog/pages/${code}/${name}: front matter needs "${field}"`);
+    servicePages.push({ ...sp, lang: code, slug, url: pageURL(code, slug) });
+  }
+}
+// Hand-tuned order first (front matter `order:`), then oldest first so the core pages lead.
+servicePages.sort((a, b) => (+a.order || 99) - (+b.order || 99) || a.date.localeCompare(b.date));
+const pagesOf = (code) => servicePages.filter((p) => p.lang === code);
+const pageTranslations = (sp) => servicePages.filter((p) => p.key === sp.key);
+
+/** `## …` sections whose `### …` headings are all questions become FAQPage JSON-LD. */
+function faqPairs(markdown) {
+  const pairs = [];
+  for (const section of markdown.split(/^## /m).slice(1)) {
+    const qs = [...section.matchAll(/^### (.+)\n([\s\S]*?)(?=^### |(?![\s\S]))/gm)];
+    if (!qs.length || !qs.every(([, q]) => /[?？]\s*$/.test(q))) continue;
+    for (const [, q, a] of qs) {
+      const text = decode(marked.parse(a.replace(/^\{\{app-cta\}\}$/gm, "")));
+      if (text) pairs.push([q.trim(), text]);
+    }
+  }
+  return pairs;
+}
+const faqLd = (code, pairs) => ({ "@context": "https://schema.org", "@type": "FAQPage", inLanguage: LANGS[code].hreflang,
+  mainEntity: pairs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) });
 const blogLangs = CODES.filter((code) => posts.some((p) => p.lang === code));
 const translationsOf = (post) => posts.filter((p) => p.key === post.key);
 
@@ -163,6 +214,10 @@ const formatDate = (code, iso) => new Date(`${iso}T12:00:00Z`)
 const decode = (s) => s.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
   .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
 
+/** Footer links to this language's service pages (internal links to the commercial pages). */
+const footerServiceLinks = (code, indent) => pagesOf(code)
+  .map((p) => `${indent}<a href="${p.url}">${esc(p.navLabel || p.h1)}</a>\n`).join("");
+
 // ---------------------------------------------------------------------------------------------
 // 2. Home pages
 
@@ -187,7 +242,9 @@ const REDIRECT_SCRIPT = `  <script>
   </script>`;
 
 let template = read("src", "index.html")
-  .replaceAll("/assets/style.css", `/assets/style.css?v=${ASSET_V}`);
+  .replaceAll("/assets/style.css", `/assets/style.css?v=${ASSET_V}`)
+  .replaceAll("/assets/blog.css", `/assets/blog.css?v=${ASSET_V}`)
+  .replaceAll("/assets/site.js", `/assets/site.js?v=${ASSET_V}`);
 template = V11 ? template.replaceAll("<!--v11-->\n", "").replaceAll("<!--/v11-->\n", "")
   : template.replace(/<!--v11-->[\s\S]*?<!--\/v11-->\n/g, "");
 const homes = Object.fromEntries(CODES.map((c) => [c, homeURL(c)]));
@@ -230,6 +287,17 @@ for (const code of CODES) {
     blog_nav: hasBlog ? `      <a class="nav-link" href="${blogURL(code)}">${esc(L.blog)}</a>\n` : "",
     blog_footer: hasBlog ? `      <a href="${blogURL(code)}">${esc(L.blog)}</a>\n` : "",
     agent_faq: faq.html,
+    service_links: pagesOf(code).length ? `  <section class="section" id="uses">
+    <div class="wrap">
+      <h2>${esc(L.servicesTitle)}</h2>
+      <ul class="guide-list">
+${pagesOf(code).map((p) => `        <li><a href="${p.url}"><strong>${esc(p.h1)}</strong><span>${esc(p.description)}</span></a></li>`).join("\n")}
+      </ul>
+    </div>
+  </section>
+
+` : "",
+    service_footer: footerServiceLinks(code, "      "),
     latest_guides: latest.length ? `  <section class="section" id="guides">
     <div class="wrap">
       <h2>${esc(L.blogTitle)}</h2>
@@ -254,14 +322,34 @@ ${latest.map((p) => `        <li><a href="${p.url}"><strong>${esc(p.title)}</str
 // ---------------------------------------------------------------------------------------------
 // 3. Blog
 
-const storeBadge = (code) => `<a class="appstore-badge" href="${APPSTORE}" data-app-store data-location="blog">
+const storeBadge = (code, location = "blog") => `<a class="appstore-badge" href="${APPSTORE}" data-app-store data-location="${location}">
     <img src="/assets/appstore-badge.svg" alt="${esc(t(code, "appstore_alt"))}" height="48" loading="lazy">
   </a>`;
-const ctaBox = (code) => `<aside class="post-cta">
+const ctaBox = (code, location = "blog") => `<aside class="post-cta">
   <h2>${esc(LANGS[code].ctaTitle)}</h2>
   <p>${esc(LANGS[code].ctaText)}</p>
-  ${storeBadge(code)}
+  ${storeBadge(code, location)}
 </aside>`;
+const renderBody = (md, code, location) => marked.parse(md).replace(/<p>\{\{app-cta\}\}<\/p>/, ctaBox(code, location))
+  .replace(/<table>/g, '<div class="table-scroll"><table>').replace(/<\/table>/g, "</table></div>");
+
+/** "Read next" under an article or service page: the cluster's service page, then up to three
+ *  guides of the same language — same cluster first, newest next. Every page links to its
+ *  neighbours this way, so older guides gain links to new ones without being edited. */
+function readNext({ lang, key, cluster, url }) {
+  const hub = cluster || key;
+  const service = servicePages.find((p) => p.lang === lang && p.key === hub && p.url !== url);
+  const guides = posts.filter((p) => p.lang === lang && p.url !== url)
+    .sort((a, b) => ((b.cluster === hub) - (a.cluster === hub)) || b.date.localeCompare(a.date)).slice(0, 3);
+  const items = [...(service ? [service] : []), ...guides];
+  if (!items.length) return "";
+  return `<aside class="read-next">
+    <h2>${esc(LANGS[lang].readNext)}</h2>
+    <ul>
+${items.map((p) => `      <li><a href="${p.url}"><strong>${esc(p.h1 || p.title)}</strong><span>${esc(p.description)}</span></a></li>`).join("\n")}
+    </ul>
+  </aside>`;
+}
 
 function page({ code, title, description, url, alternatesByLang, menuHref, jsonLd, main, ogType }) {
   const L = LANGS[code];
@@ -311,7 +399,7 @@ ${main}
     <nav>
       <a href="${homeURL(code)}">${esc(L.home)}</a>
       <a href="${blogURL(code)}">${esc(L.blog)}</a>
-      <a href="/privacy/">${esc(t(code, "footer_privacy"))}</a>
+${footerServiceLinks(code, "      ")}      <a href="/privacy/">${esc(t(code, "footer_privacy"))}</a>
       <a href="/terms/">${esc(t(code, "footer_terms"))}</a>
     </nav>
   </div>
@@ -326,8 +414,7 @@ ${main}
 for (const post of posts) {
   const L = LANGS[post.lang];
   const siblings = Object.fromEntries(translationsOf(post).map((p) => [p.lang, p.url]));
-  const body = marked.parse(post.body).replace(/<p>\{\{app-cta\}\}<\/p>/, ctaBox(post.lang))
-    .replace(/<table>/g, '<div class="table-scroll"><table>').replace(/<\/table>/g, "</table></div>");
+  const body = renderBody(post.body, post.lang, "blog");
   const main = `<main class="post">
   <nav class="breadcrumbs" aria-label="breadcrumb"><a href="${homeURL(post.lang)}">${esc(L.home)}</a> › <a href="${blogURL(post.lang)}">${esc(L.blog)}</a></nav>
   <article>
@@ -335,6 +422,7 @@ for (const post of posts) {
     <p class="post-meta">${esc(L.published)} <time datetime="${post.date}">${formatDate(post.lang, post.date)}</time></p>
     ${body}
   </article>
+  ${readNext(post)}
   <p class="post-back"><a href="${blogURL(post.lang)}">← ${esc(L.allPosts)}</a></p>
 </main>`;
   const jsonLd = [{
@@ -344,7 +432,7 @@ for (const post of posts) {
     image: `${SITE}/assets/og-image.png`, author: org, publisher: org,
     mainEntityOfPage: `${SITE}${post.url}`,
     ...(post.keywords ? { keywords: post.keywords } : {}),
-  }, {
+  }, ...(faqPairs(post.body).length ? [faqLd(post.lang, faqPairs(post.body))] : []), {
     "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
       { "@type": "ListItem", position: 1, name: L.home, item: `${SITE}${homeURL(post.lang)}` },
       { "@type": "ListItem", position: 2, name: L.blog, item: `${SITE}${blogURL(post.lang)}` },
@@ -402,7 +490,61 @@ ${own.map((p) => `    <item>
 }
 
 // ---------------------------------------------------------------------------------------------
-// 4. Sitemap — every home page, blog index, article and legal page, with hreflang alternates.
+// 4. Service pages — product / use-case landing pages for commercial searches ("envelope budgeting
+// app", "Haushaltsbuch App"), with a hero like the home page and the article styles below it.
+
+const SCREENS = new Set(["overview", "sheet", "insights"]);
+for (const sp of servicePages) {
+  const L = LANGS[sp.lang];
+  const siblings = Object.fromEntries(pageTranslations(sp).map((p) => [p.lang, p.url]));
+  const screen = SCREENS.has(sp.screen) ? sp.screen : "overview";
+  const main = `<main class="service">
+  <section class="hero service-hero">
+    <div class="wrap">
+      <div>
+        <nav class="breadcrumbs" aria-label="breadcrumb"><a href="${homeURL(sp.lang)}">${esc(L.home)}</a> › ${esc(sp.navLabel || sp.h1)}</nav>
+        ${sp.eyebrow ? `<p class="eyebrow">${esc(sp.eyebrow)}</p>` : ""}
+        <h1>${esc(sp.h1)}</h1>
+        <p class="tagline">${esc(sp.lead)}</p>
+        <div class="hero-badges">
+          ${storeBadge(sp.lang, "page")}
+        </div>
+        <p class="form-note">${esc(t(sp.lang, "hero_note"))}</p>
+      </div>
+      <div class="phone">
+        <img src="/assets/screens/${sp.lang}/${screen}.webp" width="600" height="1304" alt="${esc(sp.screenAlt || t(sp.lang, "hero_img_alt"))}" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+  <div class="post service-body">
+    <article>
+    ${renderBody(sp.body, sp.lang, "page")}
+    </article>
+    ${readNext(sp)}
+  </div>
+</main>`;
+  const pairs = faqPairs(sp.body);
+  const jsonLd = [{
+    "@context": "https://schema.org", "@type": "WebPage", name: sp.title, description: sp.description,
+    inLanguage: L.hreflang, url: `${SITE}${sp.url}`, dateModified: sp.updated || sp.date, publisher: org,
+    about: { "@type": "SoftwareApplication", name: BRAND, applicationCategory: "FinanceApplication",
+      operatingSystem: "iOS 15.0 or later", downloadUrl: APPSTORE, url: `${SITE}${homeURL(sp.lang)}` },
+    ...(sp.keywords ? { keywords: sp.keywords } : {}),
+  }, {
+    "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: L.home, item: `${SITE}${homeURL(sp.lang)}` },
+      { "@type": "ListItem", position: 2, name: sp.navLabel || sp.h1, item: `${SITE}${sp.url}` },
+    ],
+  }, ...(pairs.length ? [faqLd(sp.lang, pairs)] : [])];
+  writePage(sp.url, page({
+    code: sp.lang, title: sp.title, description: sp.description, url: sp.url,
+    alternatesByLang: siblings, jsonLd, main, ogType: "website",
+    menuHref: (c) => siblings[c] || homeURL(c),
+  }));
+}
+
+// ---------------------------------------------------------------------------------------------
+// 5. Sitemap — every home page, blog index, article and legal page, with hreflang alternates.
 // /join/ is left out on purpose (robots.txt disallows it).
 
 const urlEntry = (loc, lastmod, alts = {}) => {
@@ -414,12 +556,15 @@ const urlEntry = (loc, lastmod, alts = {}) => {
 const blogs = Object.fromEntries(blogLangs.map((c) => [c, blogURL(c)]));
 // Home pages change when the copy, a guide or an agent FAQ item does; the newest post date is a
 // truthful floor that doesn't claim a change on every build.
-const homeMod = posts[0]?.date || today;
+const homeMod = [posts[0]?.date, ...servicePages.map((p) => p.updated || p.date),
+  ...CODES.map((c) => homeSeo[c]._updated)].filter(Boolean).sort().pop() || today;
 const entries = [
   ...CODES.map((c) => urlEntry(homeURL(c), homeMod, homes)),
   ...blogLangs.map((c) => urlEntry(blogURL(c), posts.find((p) => p.lang === c).date, blogs)),
   ...posts.map((p) => urlEntry(p.url, p.updated || p.date,
     Object.fromEntries(translationsOf(p).map((x) => [x.lang, x.url])))),
+  ...servicePages.map((p) => urlEntry(p.url, p.updated || p.date,
+    Object.fromEntries(pageTranslations(p).map((x) => [x.lang, x.url])))),
   urlEntry("/privacy/", LEGAL_LASTMOD),
   urlEntry("/terms/", LEGAL_LASTMOD),
 ];
@@ -429,5 +574,5 @@ ${entries.join("\n")}
 </urlset>
 `);
 
-console.log(`Built ${CODES.length} home pages, ${posts.length} posts in ${blogLangs.length} languages, `
+console.log(`Built ${CODES.length} home pages, ${posts.length} posts in ${blogLangs.length} languages, ${servicePages.length} service pages, `
   + `${entries.length} sitemap URLs → dist/${V11 ? "" : " (without 1.1 features)"}`);

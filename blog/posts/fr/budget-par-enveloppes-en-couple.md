@@ -3,6 +3,7 @@ title: Budget par enveloppes en couple : démarrer en une soirée
 description: Le budget par enveloppes en couple, pas à pas : choisir ses enveloppes, fixer les montants d'après le mois dernier et tenir un budget commun fiable.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: budget par enveloppes en couple, budget couple, gérer son budget à deux, méthode des enveloppes, budget commun, budget du foyer, faire ses comptes à deux
 ---
 

@@ -3,13 +3,19 @@
 If something is not on this list, don't claim it. When unsure, describe the general technique
 (how to budget, how to split costs) rather than an app feature.
 
-Checked against app **1.1.0** (App Store, 2026-09-29). Update this file with every app release.
+Checked against app **1.1.0** (App Store, 2026-09-29) and the site on 2026-11-14. Update this file
+with every app release — 1.2.0 (an Apple Watch app) is in development; until it is on the App Store
+the Watch app does not exist for the agent.
 
 ## The app
 - Name: **Bill Tracker** (App Store name "Bill Tracker: Budget Planner"; site: billtrackerx.com).
   Publisher: ITPM Group.
-- **iPhone and iPad only, iOS 15 or later.** There is **no Android app, no web app, no Mac or
+- **iPhone and iPad only, iOS 15 or later.** There is **no Android app yet, no web app, no Mac or
   desktop app and no Apple Watch app.** Never say or hint otherwise.
+- **Android is in the works, with no date.** The home page has a "Coming soon on Google Play" badge
+  that opens a waitlist. The agent may say, at most once per page and only where Android readers
+  would ask: "An Android version is on its way — you can join the waitlist on the home page" and link
+  to the home page (`/#download`, `/<lang>/#download`). Never give a date, never say it is on Google Play.
 - App languages: English, Ukrainian, Hungarian, Norwegian, German, French, Portuguese, Spanish.
 - App Store link: use `{{app-cta}}` in posts; in FAQ answers link to `#download`. Never invent URLs.
 

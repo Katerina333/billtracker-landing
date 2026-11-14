@@ -3,6 +3,7 @@ title: Familiebudsjett: slik lager dere et budsjett som holder
 description: Slik lager dere et familiebudsjett: regn ut faktisk inntekt, velg 8–10 konvolutter, sett av til årlige utgifter og barna, og ta en kort sjekk hver uke.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: familiebudsjett, hvordan lage budsjett hjemme, budsjett familie, husholdningsbudsjett, familiebudsjett eksempel, månedsbudsjett for familie, hvordan lage budsjett
 ---
 

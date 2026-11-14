@@ -3,6 +3,7 @@ title: Envelope Budgeting for Couples: How to Start in One Evening
 description: A practical guide to envelope budgeting for couples: pick envelopes, set amounts from last month's spending, and keep one shared budget you both trust.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: envelope budgeting for couples, budget for couples, how to budget as a couple, shared budget, envelope method, household budget
 ---
 

@@ -3,6 +3,7 @@ title: Umschlagmethode für Paare: So startet ihr an einem Abend
 description: Umschlagmethode für Paare, Schritt für Schritt: Umschläge wählen, Beträge aus dem letzten Monat ableiten und ein gemeinsames Budget führen, dem ihr beide traut.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: Umschlagmethode für Paare, Umschlagmethode, gemeinsames Budget, Haushaltsbuch für Paare, Haushaltsbudget als Paar, Budget planen zu zweit, Finanzen als Paar
 ---
 

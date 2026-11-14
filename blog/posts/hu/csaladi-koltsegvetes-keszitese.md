@@ -3,6 +3,7 @@ title: Családi költségvetés készítése: havi terv, ami kitart
 description: Családi költségvetés készítése lépésről lépésre: valós bevétel, 8–10 boríték, keret az éves kiadásokra és a gyerekekre, heti rövid ellenőrzéssel.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: családi költségvetés készítése, családi költségvetés, családi költségvetés minta, havi kiadások táblázat, háztartási költségvetés, hogyan vezessük a családi kasszát, költségvetés készítése
 ---
 

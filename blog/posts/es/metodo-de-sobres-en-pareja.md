@@ -3,6 +3,7 @@ title: Método de sobres en pareja: cómo empezar en una tarde
 description: Guía práctica del método de sobres en pareja: elegir los sobres, fijar importes según el mes pasado y llevar un presupuesto común en el que ambos confían.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: método de sobres en pareja, presupuesto en pareja, cómo organizar el dinero en pareja, presupuesto por sobres, presupuesto familiar, gastos compartidos en pareja, método de los sobres
 ---
 

@@ -3,6 +3,7 @@ title: Borítékos költségvetés pároknak: egy este alatt kész
 description: Gyakorlati útmutató a borítékos költségvetéshez pároknak: válasszatok borítékokat, szabjatok keretet a múlt havi költésből, és vezessétek közösen.
 date: 2026-11-11
 key: envelope-budgeting-couples
+cluster: couples-budget-app
 keywords: borítékos költségvetés pároknak, borítékos módszer, közös költségvetés, közös kassza, családi költségvetés, háztartási költségvetés, költségvetés készítése párként
 ---
 

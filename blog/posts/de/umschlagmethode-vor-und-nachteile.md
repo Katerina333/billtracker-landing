@@ -3,6 +3,7 @@ title: Umschlagmethode: Vor- und Nachteile – passt sie zu euch?
 description: Vor- und Nachteile der Umschlagmethode, der Unterschied zum reinen Haushaltsbuch und ein Monatsbeispiel in Euro, damit ihr entscheiden könnt, ob sie passt.
 date: 2026-11-14
 key: envelope-budgeting-pros-cons
+cluster: envelope-budgeting-app
 keywords: Umschlagmethode Vor- und Nachteile, Umschlagmethode, Umschlagmethode Nachteile, Umschlagmethode Vorteile, Umschlagmethode oder Haushaltsbuch, Umschlagmethode Beispiel, Budget mit Umschlägen
 ---
 

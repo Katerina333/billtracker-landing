@@ -3,6 +3,7 @@ title: How to Make a Family Budget: A Monthly Plan That Lasts
 description: How to make a family budget step by step: count real income, pick 8–10 envelopes, plan for yearly costs and kids, and keep it going with a weekly check.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: how to make a family budget, family budget, how to budget as a family, household budget, monthly family budget, family budget example, how to budget for a family of 4
 ---
 

@@ -3,6 +3,7 @@ title: Método dos envelopes: vantagens e desvantagens na prática
 description: Vantagens e desvantagens do método dos envelopes, a diferença para o simples controle de gastos e um exemplo em reais para decidir se funciona na sua casa.
 date: 2026-11-14
 key: envelope-budgeting-pros-cons
+cluster: envelope-budgeting-app
 keywords: método dos envelopes vantagens e desvantagens, método dos envelopes, orçamento em envelopes, desvantagens do método dos envelopes, método dos envelopes ou controle de gastos, sistema de envelopes, método dos envelopes exemplo
 ---
 

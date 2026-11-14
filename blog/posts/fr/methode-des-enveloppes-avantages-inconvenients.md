@@ -3,6 +3,7 @@ title: Méthode des enveloppes : avantages, inconvénients, pour qui ?
 description: Les avantages et inconvénients de la méthode des enveloppes, la différence avec un simple suivi des dépenses, et un exemple chiffré en euros pour décider.
 date: 2026-11-14
 key: envelope-budgeting-pros-cons
+cluster: envelope-budgeting-app
 keywords: méthode des enveloppes avantages inconvénients, méthode des enveloppes, budget par enveloppes, inconvénients méthode des enveloppes, méthode des enveloppes ou suivi des dépenses, système des enveloppes budget, méthode des enveloppes exemple
 ---
 

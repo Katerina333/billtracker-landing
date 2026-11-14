@@ -3,6 +3,7 @@ title: Comment faire un budget familial qui tient toute l'année
 description: Comment faire un budget familial : partir du revenu réel, choisir 8 à 10 enveloppes, prévoir dépenses annuelles et enfants, faire le point chaque semaine.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: comment faire un budget familial, budget familial, budget familial mensuel, budget du foyer, gérer ses dépenses mensuelles, exemple de budget familial, suivre ses dépenses en famille
 ---
 

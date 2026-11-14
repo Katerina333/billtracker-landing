@@ -3,6 +3,7 @@ title: Familienbudget planen: Ein Monatsplan, der wirklich hält
 description: Familienbudget planen in sechs Schritten: echtes Netto zählen, 8–10 Umschläge wählen, Jahreskosten und Kinder einplanen und jede Woche kurz prüfen.
 date: 2026-11-13
 key: family-budget
+cluster: family-budget-app
 keywords: Familienbudget planen, Budget planen Familie, Haushaltsbudget Familie, Haushaltsbuch Familie, Haushaltsplan erstellen, Budget planen Tipps, Ausgaben tracken Familie
 ---
 

@@ -3,6 +3,7 @@ title: Método de los sobres: ventajas y desventajas, ¿es para ti?
 description: Ventajas y desventajas del método de los sobres, en qué se diferencia de solo anotar gastos y un ejemplo mensual con cifras para decidir si te conviene.
 date: 2026-11-14
 key: envelope-budgeting-pros-cons
+cluster: envelope-budgeting-app
 keywords: método de los sobres ventajas y desventajas, método de los sobres, presupuesto por sobres, desventajas del método de los sobres, método de los sobres o control de gastos, sistema de sobres, método de los sobres ejemplo
 ---
 
