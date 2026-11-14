@@ -102,14 +102,19 @@ report why. A missed day is fine; a broken or wrong page is not.
 
 ## Search Console access
 
-`gum` (v2.3.1, `~/.local/bin/gum`) is signed in to the owner's Google account. `pull-keywords.mjs`
-reads with `webmasters.readonly` and finds the billtrackerx.com property by host (Domain or
-URL-prefix property, owner/full access only). Check:
-`~/.local/bin/gum read searchconsole.sites.list --output json`. If the property is missing, the
-agent runs on autocomplete alone and says so.
+`gum` (v2.3.1, `~/.local/bin/gum`) has a **profile of its own for this site: `billtrackerx`**
+(`config.json → gumProfile`), signed in to the owner's Google account through the OAuth client of
+the Google Cloud project "billtrackerx" (client secret in the macOS Keychain, never in a file here).
+Both scripts pass `--profile billtrackerx`. The **default** profile belongs to the
+gpsandareameasure.com agent: never use it, log it in or out, or change it from here.
+
+`pull-keywords.mjs` reads with `webmasters.readonly` and finds the billtrackerx.com property by host
+(Domain or URL-prefix property, owner/full access only). Check:
+`~/.local/bin/gum read searchconsole.sites.list --profile billtrackerx --output json`. If the
+property is missing or Search Console is UNAVAILABLE, the agent runs on autocomplete alone and says so.
 
 The **only** change the agent makes in Search Console is resubmitting the sitemap
-(`submit-sitemap.sh`), which needs the `webmasters` scope. If that script reports `SCOPE_MISSING`,
-the owner grants it once with
-`~/.local/bin/gum auth login --scope https://www.googleapis.com/auth/webmasters,https://www.googleapis.com/auth/webmasters.readonly`.
+(`submit-sitemap.sh`, `webmasters` scope). If either script reports a missing scope or an expired
+sign-in, that needs the owner, once:
+`~/.local/bin/gum auth login --profile billtrackerx --scope https://www.googleapis.com/auth/webmasters,https://www.googleapis.com/auth/webmasters.readonly`.
 Never call any other Search Console write or destructive op (sites.add/delete, sitemaps.delete).

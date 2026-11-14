@@ -1,6 +1,7 @@
 {
   "site": "https://billtrackerx.com",
   "gum": "~/.local/bin/gum",
+  "gumProfile": "billtrackerx",
   "gscWindowDays": 28,
   "langs": {
     "en": { "hl": "en", "gl": ["us", "gb", "ca", "au"], "countries": ["usa", "gbr", "can", "aus", "nzl", "irl"],

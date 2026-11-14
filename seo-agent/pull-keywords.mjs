@@ -20,6 +20,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const AGENT = path.join(ROOT, "seo-agent");
 const config = JSON.parse(fs.readFileSync(path.join(AGENT, "config.json"), "utf8"));
 const GUM = config.gum.replace(/^~/, os.homedir());
+// gum keeps one sign-in per profile. This site has its own (Google Cloud project "billtrackerx");
+// the default profile belongs to another site's agent and must not be used or changed here.
+const GUM_PROFILE = config.gumProfile || "default";
 const day = (offset) => new Date(Date.now() + offset * 864e5).toISOString().slice(0, 10);
 const today = day(0);
 
@@ -27,8 +30,8 @@ const today = day(0);
 // 1. Search Console
 
 function gum(op, args) {
-  const out = execFileSync(GUM, ["read", op, "--args", JSON.stringify(args), "--output", "json",
-    "--max-items", "all", "--log-level", "error"],
+  const out = execFileSync(GUM, ["read", op, "--profile", GUM_PROFILE, "--args", JSON.stringify(args),
+    "--output", "json", "--max-items", "all", "--log-level", "error"],
   { encoding: "utf8", maxBuffer: 64 << 20, stdio: ["ignore", "pipe", "pipe"] });
   return JSON.parse(out);
 }
@@ -82,7 +85,7 @@ try {
   let error = String(err.stdout || err.stderr || err.message || err).trim();
   try { const env = JSON.parse(error); error = `${env.error_code}: ${env.message}`; } catch { /* not an envelope */ }
   gsc = { ok: false, error: error.slice(0, 600),
-    fix: `run: ${GUM} auth status --scopes webmasters.readonly  (see seo-agent/AGENT.md → Search Console access)` };
+    fix: `needs a human: ${GUM} auth login --profile ${GUM_PROFILE} --scope https://www.googleapis.com/auth/webmasters,https://www.googleapis.com/auth/webmasters.readonly  (see seo-agent/AGENT.md → Search Console access)` };
 }
 
 // ---------------------------------------------------------------------------------------------
