@@ -1,3 +1,12 @@
 dist/
 node_modules/
 .DS_Store
+
+# Credentials — this repo is PUBLIC; none of these may ever be committed.
+client_secret*.json
+*.p8
+*.pem
+*.key
+.env
+.env.*
+service-account*.json
